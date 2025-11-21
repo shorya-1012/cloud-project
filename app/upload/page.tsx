@@ -7,7 +7,7 @@ import { useAuth } from "@clerk/nextjs"
 import { Upload } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { ChangeEvent, useEffect, useState } from "react"
-import { createDBRecord, getSignedURL } from "../utils/actions"
+import { getSignedURL } from "../utils/actions"
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
@@ -97,28 +97,32 @@ export default function Page() {
         placeholder="Enter name of document"
         className="w-full bg-zinc-700 border-none"
       />
-      <Label className="text-lg mt-10 mb-2">Product Name</Label>
-      <label
-        className="
+      {!file &&
+        <>
+          <Label className="text-lg mt-10 mb-2">Document File</Label>
+          <label
+            className="
         flex flex-col items-center justify-center 
         w-full h-[220px] cursor-pointer rounded-2xl 
         border-2 border-dashed border-zinc-300 
         bg-zinc-700 transition 
         hover:bg-zinc-500 hover:border-zinc-400
       "
-      >
-        <Upload className="w-10 h-10 text-white" />
-        <span className="mt-2 text-sm text-white">
-          Click to upload or drag & drop
-        </span>
+          >
+            <Upload className="w-10 h-10 text-white" />
+            <span className="mt-2 text-sm text-white">
+              Click to upload or drag & drop
+            </span>
 
-        <Input
-          type="file"
-          disabled={!!file}
-          onChange={(e) => handleImageSelect(e)}
-          className="hidden"
-        />
-      </label>
+            <Input
+              type="file"
+              disabled={!!file}
+              onChange={(e) => handleImageSelect(e)}
+              className="hidden"
+            />
+          </label>
+        </>
+      }
 
       {file &&
         <>
