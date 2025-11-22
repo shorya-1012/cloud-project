@@ -18,10 +18,10 @@ const acceptedFiles = [
 ]
 
 const s3 = new S3Client({
-  region: process.env.AWS_REGION!,
+  region: process.env.S3_REGION!,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY!,
-    secretAccessKey: process.env.AWS_SECRET_KEY!
+    accessKeyId: process.env.S3_ACCESS_KEY!,
+    secretAccessKey: process.env.S3_SECRET_KEY!
   }
 })
 
@@ -41,7 +41,7 @@ export async function getSignedURL(type: string, size: number, name: string) {
 
   const key = `${userId}/${generateFileName()}`;
   const putObjcommand = new PutObjectCommand({
-    Bucket: process.env.AWS_S3_BUCKET_NAME!,
+    Bucket: process.env.S3_BUCKET_NAME!,
     Key: key,
     ContentType: type,
     ContentLength: size,
@@ -81,7 +81,7 @@ export async function getDownloadUrl(file_key: string) {
   }
 
   const getCommand = new GetObjectCommand({
-    Bucket: process.env.AWS_S3_BUCKET_NAME!,
+    Bucket: process.env.S3_BUCKET_NAME!,
     Key: file.file_key!,
   })
 
